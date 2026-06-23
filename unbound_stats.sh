@@ -55,7 +55,7 @@
 readonly SCRIPT_VERSION="v1.4.8"
 readonly SCRIPT_VERSTAG="26041500"
 SCRIPT_BRANCH="develop"
-SCRIPT_REPO="https://raw.githubusercontent.com/juched78/Unbound-Asuswrt-Merlin/$SCRIPT_BRANCH"
+SCRIPT_REPO="https://raw.githubusercontent.com/ExtremeFiretop/Unbound-Asuswrt-Merlin/$SCRIPT_BRANCH"
 
 #define www script names#
 readonly SCRIPT_WEBPAGE_DIR="$(readlink -f /www/user)"
@@ -1758,13 +1758,13 @@ case "$1" in
 	;;
 	develop)
 		SCRIPT_BRANCH="develop"
-		SCRIPT_REPO="https://raw.githubusercontent.com/juched78/Unbound-Asuswrt-Merlin/$SCRIPT_BRANCH"
+		SCRIPT_REPO="https://raw.githubusercontent.com/ExtremeFiretop/Unbound-Asuswrt-Merlin/$SCRIPT_BRANCH"
 		Update_Version force
 		exit 0
 	;;
 	stable)
 		SCRIPT_BRANCH="master"
-		SCRIPT_REPO="https://raw.githubusercontent.com/juched78/Unbound-Asuswrt-Merlin/$SCRIPT_BRANCH"
+		SCRIPT_REPO="https://raw.githubusercontent.com/ExtremeFiretop/Unbound-Asuswrt-Merlin/$SCRIPT_BRANCH"
 		Update_Version force
 		exit 0
 	;;
