@@ -232,6 +232,34 @@ function dateDiff(d1, d2) {
 
 var BarChartHistogram, BarChartAnswers, BarChartTopBlocked, BarChartTopReplies;
 var charttypehistogram, charttypeanswers, charttypetopblocked, charttypetopreplies;
+
+/*
+ * Compatibility layer for newer ASUS BE19000AI where the old
+ * global "cookie" helper was removed in favour of localStorage.
+ * Info here: https://www.snbforums.com/threads/graphical-statistics-gui-add-on-tab-script-doesnt-work-on-be19000ai.97455/post-995793
+ */
+if (
+    typeof window.cookie === "undefined" ||
+    typeof window.cookie.get !== "function" ||
+    typeof window.cookie.set !== "function"
+) {
+    window.cookie = {
+        get: function (key) {
+            return window.localStorage.getItem(key);
+        },
+
+        set: function (key, value) {
+            window.localStorage.setItem(key, String(value));
+        },
+
+        unset: function (key) {
+            window.localStorage.removeItem(key);
+        }
+    };
+
+    console.log("Installed localStorage compatibility for cookie API.");
+}
+
 var ShowLines=GetCookie("ShowLines");
 var ShowFill=GetCookie("ShowFill");
 Chart.defaults.global.defaultFontColor = "#CCC";
