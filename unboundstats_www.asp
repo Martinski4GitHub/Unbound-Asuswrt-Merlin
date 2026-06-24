@@ -90,7 +90,7 @@ th.keystatsnumber {
 <script>
 
 /**----------------------------**/
-/** Last Modified: 2026-Mar-26 **/
+/** Last Modified: 2026-Jun-23 **/
 /**----------------------------**/
 
 /**-------------------------------------**/
@@ -225,9 +225,38 @@ function FillEmptyDates(startDay, endDay, data)
 }
 
 
-/* helper function to find date differences*/
+/* helper function to find date differences */
 function dateDiff(d1, d2) {
   return Math.floor((d2 - d1) / (1000 * 60 * 60 * 24));
+}
+
+/**----------------------------------------------------------------**
+ ** Compatibility layer for the latest AsusWRT6 routers, such as
+ ** the GT-BE19000AI, where the previous global 'cookie' helper 
+ ** functions defined in the 'state.js' file are now removed in 
+ ** favour of using the "window.localStorage" property.
+ **----------------------------------------------------------------**/
+if (typeof window.cookie === "undefined" ||
+    typeof window.cookie.get !== "function" ||
+    typeof window.cookie.set !== "function")
+{
+    window.cookie = {
+        get: function (key) {
+            return window.localStorage.getItem(key);
+        },
+
+        /** In the previous 'cookie' function a 3rd argument was given for 'days' **/
+        /** Here, we ignore the value because there is no expiration date anymore **/
+        set: function (key, value, days) {
+            window.localStorage.setItem(key, String(value));
+        },
+
+        unset: function (key) {
+            window.localStorage.removeItem(key);
+        }
+    };
+
+    console.log("Installed localStorage compatibility for cookie API.");
 }
 
 var BarChartHistogram, BarChartAnswers, BarChartTopBlocked, BarChartTopReplies;
